@@ -1,26 +1,27 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import {
+  BrowserRouter,
+  Route,
+} from 'react-router-dom';
+
+import Nav from './views/Nav';
+import NewsFeed from './views/NewsFeed';
+import ProfilePage from './views/ProfilePage';
+
+class App extends React.Component {
+    render(){
+        return(
+            <div>
+                Basic Scaffolding: App
+                <BrowserRouter>
+                    <Route path='/' exact component={NewsFeed}/>
+                    <Route path='/profile' exact component={ProfilePage}/>
+                    <Nav/>
+                </BrowserRouter>
+                
+            </div>
+        )
+    };
 }
-
 export default App;
