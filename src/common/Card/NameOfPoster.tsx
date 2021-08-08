@@ -1,12 +1,11 @@
 import React from 'react';
 
-interface Props {
+type Props = {
     growwId: string;
     // Q:  Is this the correct way to remove swiggly lines when `onClick` is called when present in its parent (here, `CardTopBanner`)?
-    onClick?: React.MouseEventHandler;
+    // onClick?: React.MouseEventHandler;
 };
-interface State {};
-export default class NameOfPoster extends React.Component<Props, State>{
+export default class NameOfPoster extends React.Component<Props>{
     render(){
         return(
             <div>

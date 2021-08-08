@@ -1,28 +1,17 @@
 import React from 'react';
 
-// import ProfilePageCard from '../ui/ProfilePageCard'
-import axios from 'axios';
+import { connect } from 'react-redux';
 
-type Props = {
-};
-
-// ISSUE HERE IS WHEN I DO `GET` ON A `username` (in sendNetworkRequest), THE API RETURNS `{
-//     "errors": [
-//         "Couldn't find User"
-//     ]
-// }` EVEN THO I SENT A `username` THEY SENT ME BACK! (in sendNetworkRequestRandomImg)
 class ProfilePage extends React.Component<Props>{
-    sendNetworkRequestRandomImg = async ():Promise<any> => {
-        let response:any = await axios.get('https://api.unsplash.com/photos/random', {
-            params: { username : 'chrisjoelcampbell', },
-            headers: {
-                    Authorization: 'Client-ID B0lyINmsrENvvv75E_HItGpAp7vHXschObEogo542tY'
-                }
-        });
-        console.log(`sendNetworkRequestRandomImg/ProfilePage`,response);
-        return response.data.user.username;
-    }
     render(){
+        // UNABLE TO FORM A QUERY TO GET A USER'S INFO. 
+        // THE API RETURNS 404, saying given username not found.
+        // ISSUE HERE IS WHEN I DO `GET` ON A `username` (in sendNetworkRequest), THE API RETURNS `{
+        //     "errors": [
+        //         "Couldn't find User"
+        //     ]
+        // }` EVEN THO I SENT A `username` THEY SENT ME BACK! (in sendNetworkRequestRandomImg)
+        console.log(`render/ProfilePage`, this.props.userData)
         return(
             <div>
                 Basic Scaffolding: Profile Page
@@ -32,4 +21,27 @@ class ProfilePage extends React.Component<Props>{
         )
     };
 }
-export default ProfilePage;
+const mapStateToProps = (state: ReduxState) => {
+    console.log(`mapStateToProps/ProfilePage`,state);
+    return { userData: state.userData}
+}
+
+export default connect(mapStateToProps)(ProfilePage);
+
+type Props = {
+    userData: any;
+};
+type ImgMetaData = {
+    url: string;
+    caption: string;
+    likes: number;
+    id: string;
+    likedByUser: boolean;
+    location: string;
+    user: any;
+};
+type ReduxState = {
+    imagesMetaData: Array<ImgMetaData>;
+    loggedInProfile: string;
+    userData: any,
+};

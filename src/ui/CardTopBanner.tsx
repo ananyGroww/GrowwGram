@@ -1,26 +1,27 @@
 import React from 'react';
 
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
-// import { Link } from 'react-router-dom';
-import { loggedInProfile } from '../actions';
+import { selectedUser } from '../actions';
 import LocationOfPoster from '../common/Card/LocationOfPoster';
 import NameOfPoster from '../common/Card/NameOfPoster';
 
 class CardTopBanner extends React.Component<Props>{
-    gotoProfile(){
-        console.log(this.props.imgMetaData.user);
-        // loggedInProfile(this.props.imgMetaData.user);
+    gotoProfile = () => {
+        console.log(`gotoProfile/CardTopBanner`, this.props.imgMetaData.user);
+        this.props.selectedUser(this.props.imgMetaData.user.username);
     }
     render(){
         return(
             <div>
-                {/* <Link to='/profile' userData={this.props.userData}>
-                    <NameOfPoster growwId={this.props.userData.instagram_username}/>
-                </Link> */}
-                {/* <Link to='/profile'> */}
-                    <NameOfPoster onClick={this.gotoProfile} growwId={this.props.imgMetaData.user.instagram_username}/>
-                {/* </Link> */}
+                {/* Q: Suppose `/profile`'s componentDidMount() is finished before the reducer of actionCreator (called in gotoProfile)
+                        is finished. In this case an error will occur. How to catch and recover from this error? */}
+                <Link to='/profile'>
+                    <div onClick={this.gotoProfile}>
+                        <NameOfPoster growwId={this.props.imgMetaData.user.instagram_username}/>
+                    </div>
+                </Link>
                 <LocationOfPoster location={this.props.imgMetaData.location}/>
             </div>
         );
@@ -30,10 +31,10 @@ class CardTopBanner extends React.Component<Props>{
 const mapStateToProps = (state:ReduxState) => {
     return {imagesMetaData: state.imagesMetaData};
 }
-export default connect(mapStateToProps, { loggedInProfile: loggedInProfile, })(CardTopBanner);
+export default connect(mapStateToProps, { selectedUser: selectedUser, })(CardTopBanner);
 type Props = {
     imgMetaData: ImgMetaData;
-    loggedInProfile: Function;
+    selectedUser: Function;
 };
 type ImgMetaData = {
     url: string;
@@ -46,5 +47,5 @@ type ImgMetaData = {
 };
 type ReduxState = {
     imagesMetaData: Array<ImgMetaData>;
-    loggedInProfile: string;
+    selectedUser: string;
 };

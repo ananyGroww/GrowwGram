@@ -45,10 +45,4 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {
-    "@types/react-redux": "^7.1.18",
-    "@types/react-router-dom": "^5.1.8",
-    "@types/redux": "^3.6.0",
-    "@types/redux-thunk": "^2.1.0"
-  }
 }

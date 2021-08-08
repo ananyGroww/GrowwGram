@@ -7,7 +7,8 @@ import Card from '../ui/Card';
 
 class NewsFeed extends React.Component<Props, ClassState>{
     componentDidMount(){
-        this.props.getNewPage();
+        if(this.props.imagesMetaData.length === 0)
+            this.props.getNewPage();
     }
     renderCardsList():Array<JSX.Element>{
         console.log(`renderCardsHelper/NewsFeed`,this.props.imagesMetaData);
@@ -44,6 +45,7 @@ type ImgMetaData = {
 type ReduxState = {
     imagesMetaData: Array<ImgMetaData>;
     loggedInProfile: string;
+    userData: any,
 };
 type ClassState = {
     imagesList: Array<ImgMetaData>;
